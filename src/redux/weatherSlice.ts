@@ -9,9 +9,7 @@ export interface WeatherAPIResponse {
     weather: {
         description: string;
     }[];
-}
-
-export const fetchWeather = createAsyncThunk<
+} export const fetchWeather = createAsyncThunk<
     { city: string; data: WeatherAPIResponse },
     string
 >(
@@ -38,7 +36,7 @@ interface WeatherState {
 }
 
 const initialState: WeatherState = {
-    data: {} as Record<string, WeatherAPIResponse>,
+    data: {},
     loading: false,
     error: null,
 };
