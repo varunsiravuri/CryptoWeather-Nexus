@@ -17,7 +17,7 @@ export const fetchWeather = createAsyncThunk<
 >(
     'weather/fetchWeather',
     async (city: string) => {
-        const response = await axios.get(
+        const response = await axios.get<WeatherAPIResponse>(
             `https://api.openweathermap.org/data/2.5/weather`,
             {
                 params: {

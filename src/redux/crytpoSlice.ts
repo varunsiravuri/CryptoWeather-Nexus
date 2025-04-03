@@ -1,11 +1,19 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const fetchCrypto = createAsyncThunk(
+export interface CryptoCoin {
+    id: string;
+    name: string;
+    current_price: number;
+    price_change_percentage_24h: number;
+    market_cap: number;
+}
+
+export const fetchCrypto = createAsyncThunk<CryptoCoin[]>(
     'crypto/fetchCrypto',
     async () => {
         const ids = ['bitcoin', 'ethereum', 'solana'];
-        const response = await axios.get(
+        const response = await axios.get<CryptoCoin[]>(
             `https://api.coingecko.com/api/v3/coins/markets`,
             {
                 params: {
@@ -20,7 +28,7 @@ export const fetchCrypto = createAsyncThunk(
 );
 
 interface CryptoState {
-    data: any[];
+    data: CryptoCoin[];
     loading: boolean;
     error: string | null;
 }
@@ -41,7 +49,7 @@ const cryptoSlice = createSlice({
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(fetchCrypto.fulfilled, (state, action) => {
+            .addCase(fetchCrypto.fulfilled, (state, action: PayloadAction<CryptoCoin[]>) => {
                 state.loading = false;
                 state.data = action.payload;
             })

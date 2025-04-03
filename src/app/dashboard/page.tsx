@@ -2,9 +2,9 @@
 
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { fetchWeather } from '../../redux/weatherSlice';
-import { fetchCrypto } from '../../redux/crytpoSlice';
-import { fetchNews } from '../../redux/newsSlice';
+import { fetchWeather, WeatherAPIResponse } from '../../redux/weatherSlice'; // Import WeatherAPIResponse
+import { fetchCrypto, CryptoCoin } from '../../redux/crytpoSlice'; // Import CryptoCoin
+import { fetchNews, NewsArticle } from '../../redux/newsSlice'; // Import NewsArticle
 
 
 export default function DashboardPage() {
@@ -51,7 +51,7 @@ export default function DashboardPage() {
         {weatherLoading && <p>Loading weather data...</p>}
         {weatherError && <p className="text-red-600">Error: {weatherError}</p>}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          {Object.entries(weatherData).map(([city, data]: any) => (
+          {Object.entries(weatherData).map(([city, data]: [string, WeatherAPIResponse]) => (
             <div key={city} className="bg-white p-4 rounded shadow text-black">
               <h3 className="text-xl font-semibold mb-2">{city}</h3>
               <p>Temperature: {data.main.temp}°C</p>
@@ -68,7 +68,7 @@ export default function DashboardPage() {
         {cryptoLoading && <p>Loading crypto data...</p>}
         {cryptoError && <p className="text-red-600">Error: {cryptoError}</p>}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          {cryptoData.map((coin: any) => (
+          {cryptoData.map((coin: CryptoCoin) => (
             <div key={coin.id} className="bg-white p-4 rounded shadow text-black">
               <h3 className="text-xl font-semibold mb-2">{coin.name}</h3>
               <p>Price: ${coin.current_price}</p>
@@ -85,7 +85,7 @@ export default function DashboardPage() {
         {newsLoading && <p>Loading news...</p>}
         {newsError && <p className="text-red-600">{newsError}</p>}
         <div className="space-y-4">
-          {news.map((article: any, index: number) => (
+          {news.map((article: NewsArticle, index: number) => (
             <a
               key={index}
               href={article.link}

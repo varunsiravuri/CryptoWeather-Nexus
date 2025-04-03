@@ -1,9 +1,20 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const fetchNews = createAsyncThunk('news/fetchNews', async () => {
+export interface NewsArticle {
+    link: string;
+    title: string;
+    pubDate: string; // Assuming pubDate is a string from the API
+}
+
+interface NewsApiResponse {
+    results: NewsArticle[];
+    // Add other potential fields from the API response if needed
+}
+
+export const fetchNews = createAsyncThunk<NewsArticle[]>('news/fetchNews', async () => {
     const apiKey = process.env.NEXT_PUBLIC_NEWSDATA_API_KEY;
-    const response = await axios.get(`https://newsdata.io/api/1/news`, {
+    const response = await axios.get<NewsApiResponse>(`https://newsdata.io/api/1/news`, {
         params: {
             apikey: apiKey,
             q: 'cryptocurrency',
@@ -16,7 +27,7 @@ export const fetchNews = createAsyncThunk('news/fetchNews', async () => {
 });
 
 interface NewsState {
-    articles: any[];
+    articles: NewsArticle[];
     loading: boolean;
     error: string | null;
 }
@@ -35,8 +46,9 @@ const newsSlice = createSlice({
         builder
             .addCase(fetchNews.pending, state => {
                 state.loading = true;
+                state.error = null; // Also reset error on pending
             })
-            .addCase(fetchNews.fulfilled, (state, action) => {
+            .addCase(fetchNews.fulfilled, (state, action: PayloadAction<NewsArticle[]>) => {
                 state.loading = false;
                 state.articles = action.payload;
             })
