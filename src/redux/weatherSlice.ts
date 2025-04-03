@@ -12,8 +12,8 @@ export interface WeatherAPIResponse {
 }
 
 export const fetchWeather = createAsyncThunk<
-    { city: string; data: WeatherAPIResponse }, // ✅ Return type
-    string                                      // ✅ Argument type
+    { city: string; data: WeatherAPIResponse },
+    string
 >(
     'weather/fetchWeather',
     async (city: string) => {
@@ -32,16 +32,17 @@ export const fetchWeather = createAsyncThunk<
 );
 
 interface WeatherState {
-    data: Record<string, WeatherAPIResponse>; // ✅ Replaced any
+    data: Record<string, WeatherAPIResponse>;
     loading: boolean;
     error: string | null;
 }
 
 const initialState: WeatherState = {
-    data: {},
+    data: Object.create(null),
     loading: false,
     error: null,
 };
+
 
 const weatherSlice = createSlice({
     name: 'weather',
