@@ -1,6 +1,6 @@
 import React from 'react';
 import { Poppins } from 'next/font/google';
-import LineChart from '../../dashboard/components/CryptoChart';
+import LineChart from '../../components/CryptoChart';
 
 const poppins = Poppins({
     weight: ['400', '700'],

@@ -1,4 +1,4 @@
-import { simulateWeatherAlerts } from '../utils/weatherSocketMock';
+import { simulateWeatherAlerts } from '../dashboard/utils/weatherSocketMock';
 import { useEffect, useState } from 'react';
 
 export default function WeatherAlertsBanner() {

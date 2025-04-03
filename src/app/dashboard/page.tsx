@@ -1,9 +1,10 @@
+"use client";
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { fetchWeather, WeatherAPIResponse } from '../../redux/weatherSlice'; // Import WeatherAPIResponse
-import { fetchCrypto, CryptoCoin } from '../../redux/crytpoSlice'; // Import CryptoCoin
-import { fetchNews, NewsArticle } from '../../redux/newsSlice'; // Import NewsArticle
-
+import { fetchWeather, WeatherAPIResponse } from '../../redux/weatherSlice';
+import { fetchCrypto, CryptoCoin } from '../../redux/crytpoSlice';
+import { fetchNews, NewsArticle } from '../../redux/newsSlice';
+import { NewsCard } from '../components/NewsCard'; // Importing NewsCard
 
 export default function DashboardPage() {
   const dispatch = useAppDispatch();
@@ -32,11 +33,7 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen px-6 py-10 space-y-12">
       <h1 className="text-4xl font-bold text-center">CryptoWeather Nexus</h1>
-      <a href="/crypto/bitcoin" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-        View Bitcoin Details
-      </a>
-
-      {/* 🌦 Weather Section */}
+      {/* Weather Section */}
       <section>
         <h2 className="text-2xl font-semibold mb-4">🌦 Weather</h2>
         {weatherLoading && <p>Loading weather data...</p>}
@@ -53,7 +50,7 @@ export default function DashboardPage() {
         </div>
       </section>
 
-      {/* 🪙 Crypto Section */}
+      {/* Crypto Section */}
       <section>
         <h2 className="text-2xl font-semibold mb-4">🪙 Crypto</h2>
         {cryptoLoading && <p>Loading crypto data...</p>}
@@ -70,23 +67,14 @@ export default function DashboardPage() {
         </div>
       </section>
 
-      {/* 📰 News Section */}
+      {/* News Section */}
       <section>
         <h2 className="text-2xl font-semibold mb-4">📰 News</h2>
         {newsLoading && <p>Loading news...</p>}
         {newsError && <p className="text-red-600">{newsError}</p>}
-        <div className="space-y-4">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {news.map((article: NewsArticle, index: number) => (
-            <a
-              key={index}
-              href={article.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block bg-white text-black p-4 rounded shadow hover:bg-gray-100 transition"
-            >
-              <h3 className="text-lg font-semibold">{article.title}</h3>
-              <p className="text-sm text-gray-600">{article.pubDate}</p>
-            </a>
+            <NewsCard key={index} article={article} index={index} />
           ))}
         </div>
       </section>
