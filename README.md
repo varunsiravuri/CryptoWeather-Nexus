@@ -1,1 +1,1 @@
-# Cryptoweather-nexus
+# CryptoWeather-Nexus
