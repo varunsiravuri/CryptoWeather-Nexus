@@ -44,6 +44,9 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen px-6 py-10 space-y-12">
       <h1 className="text-4xl font-bold text-center">CryptoWeather Nexus</h1>
+      <a href="/crypto/bitcoin" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        View Bitcoin Details
+      </a>
 
       {/* 🌦 Weather Section */}
       <section>
