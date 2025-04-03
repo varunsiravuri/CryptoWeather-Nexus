@@ -34,8 +34,8 @@ async function fetchHistoricalData(cryptoId: string): Promise<ChartData> {
 import { use } from 'react';
 
 export default async function CryptoDetail({ params }: Props) {
-    const { cryptoId } = params;
-    const cryptoIdValue = use(Promise.resolve(cryptoId));
+    const { cryptoId } = await params;
+    const cryptoIdValue = cryptoId;
     const historicalData = await fetchHistoricalData(cryptoIdValue);
 
     return (
