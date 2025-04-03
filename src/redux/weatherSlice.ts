@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction, SerializedError } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export interface WeatherAPIResponse {
@@ -62,7 +62,7 @@ const weatherSlice = createSlice({
             )
             .addCase(fetchWeather.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.error.message || 'Error fetching weather';
+                state.error = (action.payload as string) || action.error?.message || 'Error fetching weather';
             });
     },
 });
