@@ -1,5 +1,3 @@
-'use client';
-
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { fetchWeather, WeatherAPIResponse } from '../../redux/weatherSlice'; // Import WeatherAPIResponse
@@ -9,12 +7,6 @@ import { fetchNews, NewsArticle } from '../../redux/newsSlice'; // Import NewsAr
 
 export default function DashboardPage() {
   const dispatch = useAppDispatch();
-  const fullState = useAppSelector((state) => state);
-  console.log('🔍 FULL REDUX STATE:', fullState);
-
-
-
-
 
   const weatherData = useAppSelector((state) => state.weather.data);
   const weatherLoading = useAppSelector((state) => state.weather.loading);
@@ -27,10 +19,6 @@ export default function DashboardPage() {
   const news = useAppSelector((state) => state.news.articles);
   const newsLoading = useAppSelector((state) => state.news.loading);
   const newsError = useAppSelector((state) => state.news.error);
-
-
-
-
 
   useEffect(() => {
     ['New York', 'London', 'Tokyo'].forEach((city) => {
