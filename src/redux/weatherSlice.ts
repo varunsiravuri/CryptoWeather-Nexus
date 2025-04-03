@@ -38,7 +38,7 @@ interface WeatherState {
 }
 
 const initialState: WeatherState = {
-    data: Object.create(null),
+    data: {} as Record<string, WeatherAPIResponse>,
     loading: false,
     error: null,
 };
