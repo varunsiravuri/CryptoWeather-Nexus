@@ -1,6 +1,6 @@
 import React from 'react';
 import { Poppins } from 'next/font/google';
-import LineChart from '@/components/CryptoChart';
+import LineChart from '../../dashboard/components/CryptoChart';
 
 const poppins = Poppins({
     weight: ['400', '700'],
@@ -31,15 +31,18 @@ async function fetchHistoricalData(cryptoId: string): Promise<ChartData> {
     }
 }
 
+import { use } from 'react';
+
 export default async function CryptoDetail({ params }: Props) {
     const { cryptoId } = params;
-    const historicalData = await fetchHistoricalData(cryptoId);
+    const cryptoIdValue = use(Promise.resolve(cryptoId));
+    const historicalData = await fetchHistoricalData(cryptoIdValue);
 
     return (
         <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center p-8">
             <h1 className={`text-4xl font-bold mb-4 ${poppins.className}`}>Crypto Details</h1>
             <p className={`text-lg text-center ${poppins.className}`}>
-                Details for {cryptoId}
+                Details for {cryptoIdValue}
             </p>
             {/* Chart Placeholder */}
             <div className="mt-8">
