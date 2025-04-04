@@ -36,7 +36,7 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen px-6 py-10 space-y-12 bg-gradient-to-b from-black via-[#1a0d00] to-[#0f0f0f] text-white">
 
-      <h1 className="text-4xl font-bold text-center">CryptoWeather Nexus</h1>
+      <h1 className="text-4xl font-bold text-center"> Storm Chain</h1>
 
       {/* Weather Section */}
       <section>
