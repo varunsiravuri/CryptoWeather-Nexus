@@ -75,6 +75,8 @@ Getting real-time updates working in sync with Redux was tricky — state confli
 
 2. 🔀 API Rate Limits & Data Caching
 We hit rate limits during development (especially NewsData.io). We introduced caching strategies and debounced calls to avoid over-fetching.
+3. 📊 Crypto Graph Rendering + Time Range Handling
+This was a beast! We needed to fetch and display historical price data dynamically based on user-selected time ranges (1D, 1W, 1M). The tricky part? Re-rendering the graph **without flickers**, managing loading states, and syncing the Redux state with the chart data. After trial-and-error with multiple render conditions and refactoring the chart component to handle updates reactively, we nailed it! 🚀📈
 
 
 ✍️ Author
