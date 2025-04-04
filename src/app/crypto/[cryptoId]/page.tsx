@@ -2,11 +2,15 @@
 
 import React, { useEffect, useState } from 'react'; // Import useState
 import { useParams } from 'next/navigation'; // Use useParams hook
-import { useAppDispatch, useAppSelector } from '../../../redux/hooks'; // Corrected import path
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import type { RootState, AppDispatch } from '../../../redux/store';
 import { fetchCryptoChartData } from '../../../redux/crytpoSlice'; // Corrected import path
-import { RootState } from '../../../redux/store'; // Import RootState for typing
 import CryptoGraph from '../../components/CryptoChart';
 import { Poppins } from 'next/font/google';
+
+// Use throughout your app instead of plain `useDispatch` and `useSelector`
+export const useAppDispatch: () => AppDispatch = useDispatch;
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 const poppins = Poppins({
     weight: ['400', '700'],

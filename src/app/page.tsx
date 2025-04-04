@@ -1,12 +1,35 @@
+'use client';
+
 import React from 'react';
 import { Poppins } from 'next/font/google';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { addFavoriteCity, removeFavoriteCity, addFavoriteCrypto, removeFavoriteCrypto } from '../store/favoritesSlice';
 
 const poppins = Poppins({
   weight: ['400', '700'],
   subsets: ['latin'],
 });
 
-export default function Home() {
+const Home = () => {
+  const dispatch = useAppDispatch();
+  const { favoriteCities, favoriteCryptos } = useAppSelector((state) => state.favorites);
+
+  const handleAddFavoriteCity = (city: string) => {
+    dispatch(addFavoriteCity(city));
+  };
+
+  const handleRemoveFavoriteCity = (city: string) => {
+    dispatch(removeFavoriteCity(city));
+  };
+
+  const handleAddFavoriteCrypto = (crypto: string) => {
+    dispatch(addFavoriteCrypto(crypto));
+  };
+
+  const handleRemoveFavoriteCrypto = (crypto: string) => {
+    dispatch(removeFavoriteCrypto(crypto));
+  };
+
   return (
     <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center">
       {/* Project Name */}
@@ -22,6 +45,42 @@ export default function Home() {
         >
           📡 Trending Insights
         </a>
+      </div>
+
+      {/* Favorite Cities */}
+      <div className="mb-4">
+        <h2 className="text-2xl font-bold mb-2">Favorite Cities</h2>
+        <ul className="flex flex-wrap gap-2">
+          {favoriteCities.map((city: string) => (
+            <li key={city} className="bg-gray-800 px-4 py-2 rounded-md">
+              {city}
+              <button onClick={() => handleRemoveFavoriteCity(city)} className="ml-2 text-red-500">
+                Remove
+              </button>
+            </li>
+          ))}
+        </ul>
+        <button onClick={() => handleAddFavoriteCity('London')} className="bg-gray-700 px-4 py-2 rounded-md mt-2">
+          Add London
+        </button>
+      </div>
+
+      {/* Favorite Cryptos */}
+      <div className="mb-8">
+        <h2 className="text-2xl font-bold mb-2">Favorite Cryptos</h2>
+        <ul className="flex flex-wrap gap-2">
+          {favoriteCryptos.map((crypto: string, index: number) => (
+            <li key={`${crypto}-${index}`} className="bg-gray-800 px-4 py-2 rounded-md">
+              {crypto}
+              <button onClick={() => handleRemoveFavoriteCrypto(crypto)} className="ml-2 text-red-500">
+                Remove
+              </button>
+            </li>
+          ))}
+        </ul>
+        <button onClick={() => handleAddFavoriteCrypto('Bitcoin')} className="bg-gray-700 px-4 py-2 rounded-md mt-2">
+          Add Bitcoin
+        </button>
       </div>
 
       {/* Highlight Features Section */}
@@ -57,4 +116,6 @@ export default function Home() {
       </footer>
     </div>
   );
-}
+};
+
+export default Home;

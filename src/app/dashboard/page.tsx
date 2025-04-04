@@ -1,8 +1,8 @@
 "use client";
 import { useEffect } from 'react'; // Keep only one import
 import Link from 'next/link'; // Import Link for navigation
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { fetchWeather, WeatherAPIResponse } from '../../redux/weatherSlice';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { fetchWeather } from '../../redux/weatherSlice';
 import { fetchCrypto, CryptoCoin } from '../../redux/crytpoSlice'; // Removed chart imports
 import { fetchNews, NewsArticle } from '../../redux/newsSlice';
 import NewsCard from '../components/NewsCard'; // Importing NewsCard
@@ -10,6 +10,7 @@ import NewsCard from '../components/NewsCard'; // Importing NewsCard
 
 export default function DashboardPage() {
   const dispatch = useAppDispatch();
+  const { favoriteCities: favCities, favoriteCryptos: favCryptos } = useAppSelector(state => state.favorites);
 
   const weatherData = useAppSelector((state) => state.weather.data);
   const weatherLoading = useAppSelector((state) => state.weather.loading);
@@ -18,7 +19,6 @@ export default function DashboardPage() {
   const cryptoData = useAppSelector((state) => state.crypto.data);
   const cryptoLoading = useAppSelector((state) => state.crypto.loading);
   const cryptoError = useAppSelector((state) => state.crypto.error);
-  // Removed chart state selectors
 
   const news = useAppSelector((state) => state.news.articles);
   const newsLoading = useAppSelector((state) => state.news.loading);
@@ -30,25 +30,27 @@ export default function DashboardPage() {
     });
 
     dispatch(fetchCrypto());
-    // Removed chart data fetch dispatch
     dispatch(fetchNews());
   }, [dispatch]);
 
   return (
     <div className="min-h-screen px-6 py-10 space-y-12">
       <h1 className="text-4xl font-bold text-center">CryptoWeather Nexus</h1>
+
       {/* Weather Section */}
       <section>
         <h2 className="text-2xl font-semibold mb-4">🌦 Weather</h2>
         {weatherLoading && <p>Loading weather data...</p>}
         {weatherError && <p className="text-red-600">Error: {weatherError}</p>}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          {Object.entries(weatherData).map(([city, data]: [string, WeatherAPIResponse]) => (
+          {Object.entries(weatherData).map(([city, data]: [string, any]) => (
             <div key={city} className="bg-white p-4 rounded shadow text-black">
-              <h3 className="text-xl font-semibold mb-2">{city}</h3>
-              <p>Temperature: {data.main.temp}°C</p>
-              <p>Humidity: {data.main.humidity}%</p>
-              <p>Condition: {data.weather[0].description}</p>
+              <h3 className="text-xl font-semibold mb-2">
+                {city}
+              </h3>
+              <p>Temperature: {data?.main?.temp}°C</p>
+              <p>Humidity: {data?.main?.humidity}%</p>
+              <p>Condition: {data?.weather?.[0]?.description}</p>
             </div>
           ))}
         </div>
@@ -57,20 +59,18 @@ export default function DashboardPage() {
       {/* Crypto Section */}
       <section>
         <h2 className="text-2xl font-semibold mb-4">🪙 Crypto</h2>
-        {/* Removed CryptoChart section */}
         {cryptoLoading && <p>Loading crypto data...</p>}
         {cryptoError && <p className="text-red-600">Error: {cryptoError}</p>}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           {cryptoData.map((coin: CryptoCoin) => (
-            // Wrap the card content in a Link component
-            <Link key={coin.id} href={`/crypto/${coin.id}`} className="block hover:scale-105 transition-transform duration-200">
-              <div className="bg-white p-4 rounded shadow text-black h-full"> {/* Added h-full for consistent height */}
-                <h3 className="text-xl font-semibold mb-2">{coin.name}</h3>
-                <p>Price: ${coin.current_price}</p>
-                <p>24h Change: {coin.price_change_percentage_24h.toFixed(2)}%</p>
-                <p>Market Cap: ${coin.market_cap.toLocaleString()}</p>
-              </div>
-            </Link>
+            <div key={coin.id} className="bg-white p-4 rounded shadow text-black h-full">
+              <h3 className="text-xl font-semibold mb-2">
+                {coin.name}
+              </h3>
+              <p>Price: ${coin.current_price}</p>
+              <p>24h Change: {coin.price_change_percentage_24h.toFixed(2)}%</p>
+              <p>Market Cap: ${coin.market_cap.toLocaleString()}</p>
+            </div>
           ))}
         </div>
       </section>
@@ -82,7 +82,7 @@ export default function DashboardPage() {
         {newsError && <p className="text-red-600">{newsError}</p>}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {news.map((article: NewsArticle, index: number) => (
-            <NewsCard key={index} article={article} index={index} />
+            <NewsCard key={index} article={article} />
           ))}
         </div>
       </section>
