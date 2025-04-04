@@ -31,24 +31,28 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center">
-      {/* Project Name */}
-      <h2 className={`text-5xl font-bold mb-8 ${poppins.className} pb-2`}>
-        Storm Chain
-      </h2>
 
-      {/* Features */}
-      <div className="mb-8">
-        <a
-          href="/dashboard"
-          className={`text-xl font-semibold bg-gray-700 rounded-md px-2 py-1 hover:bg-gray-600 transition-all ${poppins.className}`}
-        >
-          📡 Trending Insights
-        </a>
-      </div>
+    <div className="flex flex-col min-h-screen">
+      <main className="flex-grow">
+        {/* Your main content here (Hero, Dashboard, etc.) */}
+        <h2 className={`text-4xl text-center font-bold mt-12 mb-12 ${poppins.className} pb-2`}>
+          Storm Chain
+        </h2>
 
-      {/* Favorite Cities */}
-      {/* <div className="mb-4">
+        {/* Features */}
+        <div className="mb-8 flex justify-center">
+          <a
+            href="/insights"
+            className="inline-flex items-center gap-2 px-5 py-2 mt-4 text-white bg-gradient-to-r from-blue-500 to-purple-600 rounded-full shadow-md hover:scale-105 hover:shadow-lg transition transform duration-300"
+          >
+            <span className="text-lg">👉 Explore Insights</span>
+          </a>
+
+
+        </div>
+
+        {/* Favorite Cities */}
+        {/* <div className="mb-4">
         <h2 className="text-2xl font-bold mb-2">Favorite Cities</h2>
         <ul className="flex flex-wrap gap-2">
           {favoriteCities.map((city: string) => (
@@ -65,8 +69,8 @@ const Home = () => {
         </button>
       </div> */}
 
-      {/* Favorite Cryptos */}
-      {/* <div className="mb-8">
+        {/* Favorite Cryptos */}
+        {/* <div className="mb-8">
         <h2 className="text-2xl font-bold mb-2">Favorite Cryptos</h2>
         <ul className="flex flex-wrap gap-2">
           {favoriteCryptos.map((crypto: string, index: number) => (
@@ -82,6 +86,10 @@ const Home = () => {
           Add Bitcoin
         </button>
       </div> */}
+
+      </main>
+
+      <img src="/globe.svg" alt="Crypto Weather" className="w-32 h-32 mx-auto mb-4" />
 
       {/* Highlight Features Section */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
@@ -99,22 +107,31 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 p-4 text-center w-full">
+      {/* Sticky Footer */}
+      <footer className="bg-gray-900 p-4 text-center w-full mb-8">
         <div className="flex justify-center space-x-4">
-          <a href="/about" className={`hover:underline hover:text-gray-300 ${poppins.className}`}>
+          <a
+            href="/about"
+            className={`hover:underline hover:text-gray-300 ${poppins.className}`}
+          >
             About Us
           </a>
           <span className="text-gray-500">|</span>
-          <a href="/contact" className={`hover:underline hover:text-gray-300 ${poppins.className}`}>
+          <a
+            href="/contact"
+            className={`hover:underline hover:text-gray-300 ${poppins.className}`}
+          >
             Contact
           </a>
         </div>
         <div className="mt-4">
-          <span className="text-sm">CryptoWeather Nexus &copy; {new Date().getFullYear()}</span>
+          <span className="text-sm text-gray-400">
+            Storm Chain © {new Date().getFullYear()}
+          </span>
         </div>
       </footer>
     </div>
+
   );
 };
 
