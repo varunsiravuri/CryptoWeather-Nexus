@@ -60,7 +60,7 @@ const weatherSlice = createSlice({
                     state.data[city] = data;
                 }
             )
-            .addCase(fetchWeather.rejected, (state, action) => {
+            .addCase(fetchWeather.rejected, (state, action: any) => {
                 state.loading = false;
                 state.error = action.error?.message || 'Error fetching weather';
             });
