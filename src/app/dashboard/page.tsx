@@ -119,7 +119,7 @@ export default function DashboardPage() {
                 {/* Market Cap + Chart Preview */}
                 <div className="flex justify-between items-center mt-1">
                   <p>Market Cap: ${coin.market_cap.toLocaleString()}</p>
-                  <span className="text-xs text-gray-400 italic">📉 Chart Preview</span>
+                  <span className="text-xs text-gray-400 italic">📉  Chart Preview</span>
                 </div>
               </span>
             </div>
