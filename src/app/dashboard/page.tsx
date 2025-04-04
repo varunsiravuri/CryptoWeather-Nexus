@@ -1,10 +1,12 @@
 "use client";
-import { useEffect } from 'react';
+import { useEffect } from 'react'; // Keep only one import
+import Link from 'next/link'; // Import Link for navigation
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { fetchWeather, WeatherAPIResponse } from '../../redux/weatherSlice';
-import { fetchCrypto, CryptoCoin } from '../../redux/crytpoSlice';
+import { fetchCrypto, CryptoCoin } from '../../redux/crytpoSlice'; // Removed chart imports
 import { fetchNews, NewsArticle } from '../../redux/newsSlice';
 import NewsCard from '../components/NewsCard'; // Importing NewsCard
+// Removed CryptoChart import
 
 export default function DashboardPage() {
   const dispatch = useAppDispatch();
@@ -16,6 +18,7 @@ export default function DashboardPage() {
   const cryptoData = useAppSelector((state) => state.crypto.data);
   const cryptoLoading = useAppSelector((state) => state.crypto.loading);
   const cryptoError = useAppSelector((state) => state.crypto.error);
+  // Removed chart state selectors
 
   const news = useAppSelector((state) => state.news.articles);
   const newsLoading = useAppSelector((state) => state.news.loading);
@@ -27,6 +30,7 @@ export default function DashboardPage() {
     });
 
     dispatch(fetchCrypto());
+    // Removed chart data fetch dispatch
     dispatch(fetchNews());
   }, [dispatch]);
 
@@ -53,16 +57,20 @@ export default function DashboardPage() {
       {/* Crypto Section */}
       <section>
         <h2 className="text-2xl font-semibold mb-4">🪙 Crypto</h2>
+        {/* Removed CryptoChart section */}
         {cryptoLoading && <p>Loading crypto data...</p>}
         {cryptoError && <p className="text-red-600">Error: {cryptoError}</p>}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           {cryptoData.map((coin: CryptoCoin) => (
-            <div key={coin.id} className="bg-white p-4 rounded shadow text-black">
-              <h3 className="text-xl font-semibold mb-2">{coin.name}</h3>
-              <p>Price: ${coin.current_price}</p>
-              <p>24h Change: {coin.price_change_percentage_24h.toFixed(2)}%</p>
-              <p>Market Cap: ${coin.market_cap.toLocaleString()}</p>
-            </div>
+            // Wrap the card content in a Link component
+            <Link key={coin.id} href={`/crypto/${coin.id}`} className="block hover:scale-105 transition-transform duration-200">
+              <div className="bg-white p-4 rounded shadow text-black h-full"> {/* Added h-full for consistent height */}
+                <h3 className="text-xl font-semibold mb-2">{coin.name}</h3>
+                <p>Price: ${coin.current_price}</p>
+                <p>24h Change: {coin.price_change_percentage_24h.toFixed(2)}%</p>
+                <p>Market Cap: ${coin.market_cap.toLocaleString()}</p>
+              </div>
+            </Link>
           ))}
         </div>
       </section>
