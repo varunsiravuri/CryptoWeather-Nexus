@@ -81,7 +81,7 @@ We hit rate limits during development (especially NewsData.io). We introduced ca
 GitHub: @varunsiravuri
 
 🌐 Live Demo
-Check out the live version 👉 https://cryptoweather-nexu.vercel.app
+Check out the live version 👉 https://crypto-weather-nexus-weld.vercel.app
 
 
 
