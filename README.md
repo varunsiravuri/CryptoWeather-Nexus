@@ -1,6 +1,8 @@
 # 🌦️💰 Storm Chain 📡📰
 
-Storm Chain project is a real-time dashboard web app that brings together 🌤️ weather data, 🪙 cryptocurrency info, and 🗞️ top news headlines — all in one place! It features detailed views for each weather city and cryptocurrency, live WebSocket updates. Fully responsive, fast, and publicly deployed! 🚀
+Storm Chain project is a real-time dashboard web app that brings together 🌤️ weather data, 🪙 cryptocurrency info, and 🗞️ top news headlines — all in one place! It features detailed views for each weather city and cryptocurrency, live WebSocket updates. Fully responsive, fast, and publicly deployed! 🚀  
+ 
+Check out the live version 👉  https://crypto-weather-nexus-weld.vercel.app
 
 ---
 
