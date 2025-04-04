@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Poppins } from 'next/font/google';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { addFavoriteCity, removeFavoriteCity, addFavoriteCrypto, removeFavoriteCrypto } from '../store/favoritesSlice';
@@ -54,7 +54,7 @@ const Home = () => {
           </div>
           <div className="bg-[#1c1c1c] p-6 rounded-xl hover:scale-105 transition-transform duration-300">
             <h3 className="text-2xl font-bold mb-4">Cryptocurrency Tracker</h3>
-            <p>Monitor live price updates and market trends of top cryptocurrencies.</p>
+            <p>Get real-time price updates and market trends of top cryptocurrencies.</p>
           </div>
           <div className="bg-[#1c1c1c] p-6 rounded-xl hover:scale-105 transition-transform duration-300">
             <h3 className="text-2xl font-bold mb-4">Top Crypto News</h3>
