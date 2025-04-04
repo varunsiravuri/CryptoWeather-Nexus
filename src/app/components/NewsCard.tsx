@@ -26,6 +26,9 @@ export default function NewsCard({ article, index }: { article: NewsArticle; ind
           onLoad={() => setImgLoaded(true)}
           className={`w-full h-48 object-cover rounded-md transition-opacity duration-500 ease-in ${imgLoaded ? 'opacity-100' : 'opacity-0'
             }`}
+          onError={(e) => {
+            (e.target as HTMLImageElement).src = '/placeholder.jpg';
+          }}
         />
       </div>
 
