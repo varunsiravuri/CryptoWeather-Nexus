@@ -2,19 +2,9 @@
 
 import React from 'react';
 import { Line } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
-import zoomPlugin from 'chartjs-plugin-zoom'; // Import the zoom plugin
+import { Chart as ChartJS, Title, Tooltip, Legend, LineElement, CategoryScale, LinearScale, PointElement } from 'chart.js';
 
-ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend,
-    zoomPlugin // Register the zoom plugin
-);
+ChartJS.register(Title, Tooltip, Legend, LineElement, CategoryScale, LinearScale, PointElement);
 
 interface ChartData {
     prices: number[][];
@@ -24,69 +14,84 @@ interface ChartData {
 
 interface LineChartProps {
     data: ChartData;
+    selectedDays: number;
+    cryptoId: string;
 }
 
-function LineChart({ data }: LineChartProps) {
-    // Determine label format based on the range (approximated by number of data points)
-    const numDataPoints = data.prices.length;
-    const timeFormatOptions: Intl.DateTimeFormatOptions = (numDataPoints >= 7 && numDataPoints <= 30)
-        ? { month: 'short', day: 'numeric' } // Show date for 1-week and 1-month charts
-        : numDataPoints <= 24 * 2 // Roughly 2 days or less -> show time
-            ? { hour: 'numeric', minute: 'numeric' }
-            : { month: 'short', day: 'numeric' }; // More than 2 days -> show date
+const CryptoGraph = ({ data, selectedDays, cryptoId }: LineChartProps) => {
+    let chartData = null;
+    let title = '';
 
-    const chartData = {
-        labels: data.prices.map((price) => new Date(price[0]).toLocaleString(undefined, timeFormatOptions)),
+    const prices = data.prices;
+    let labels: string[] = [];
+
+    if (selectedDays === 1) {
+        labels = prices.map((price: any) => new Date(price[0]).toLocaleTimeString());
+        title = `1-Day ${cryptoId} Price Graph`;
+    } else if (selectedDays === 7) {
+        labels = prices.map((price: any) => new Date(price[0]).toLocaleDateString());
+        title = `1-Week ${cryptoId} Price Graph`;
+    } else if (selectedDays === 30) {
+        labels = prices.map((price: any) => new Date(price[0]).toLocaleDateString());
+        title = `1-Month ${cryptoId} Price Graph`;
+    } else {
+        return <p>Loading data...</p>;
+    }
+
+    const dataPoints = prices.map((price: any) => price[1]);
+
+    chartData = {
+        labels,
         datasets: [
             {
-                label: 'Price', // Simplified label (legend will be hidden anyway)
-                data: data.prices.map((price) => price[1]),
-                borderColor: 'rgba(59, 130, 246, 0.8)', // Blue color for the line
-                backgroundColor: 'rgba(59, 130, 246, 0.1)', // Light blue fill under the line
-                borderWidth: 2,
-                pointRadius: 0, // Hide points
-                tension: 0.1, // Slight curve to the line
-                fill: true, // Fill area under the line
-                // stepped: true, // Removed stepped line for a smoother look
+                label: 'Price',
+                data: dataPoints,
+                borderColor: '#32a852', // Customize the color of the line
+                backgroundColor: 'rgba(50, 168, 82, 0.2)', // Add transparency
+                fill: true, // This will fill the area under the line
             },
         ],
     };
 
+    if (!chartData) {
+        return <p>Loading data...</p>;
+    }
+
     const options = {
         responsive: true,
         maintainAspectRatio: false,
-        scales: { // Add scales configuration for styling
+        scales: {
             x: {
                 ticks: {
-                    color: 'rgba(255, 255, 255, 0.7)', // Light color for x-axis labels
-                    maxRotation: 0, // Prevent label rotation
-                    autoSkip: true, // Automatically skip labels to prevent overlap
-                    maxTicksLimit: 10 // Limit the number of visible ticks
+                    color: 'rgba(255, 255, 255, 0.7)',
+                    maxRotation: 0,
+                    autoSkip: true,
+                    maxTicksLimit: 10,
                 },
                 grid: {
-                    color: 'rgba(255, 255, 255, 0.1)', // Lighter grid lines
+                    color: 'rgba(255, 255, 255, 0.1)',
                 },
             },
             y: {
                 ticks: {
-                    color: 'rgba(255, 255, 255, 0.7)', // Light color for y-axis labels
-                    callback: function (value: string | number) { // Format y-axis ticks as currency
+                    color: 'rgba(255, 255, 255, 0.7)',
+                    callback: function (value: string | number) {
                         if (typeof value === 'number') {
                             return '$' + value.toLocaleString();
                         }
                         return value;
-                    }
+                    },
                 },
                 grid: {
-                    color: 'rgba(255, 255, 255, 0.1)', // Lighter grid lines
+                    color: 'rgba(255, 255, 255, 0.1)',
                 },
             },
         },
         plugins: {
             legend: {
-                display: false, // Hide the legend (removes the 'Price (USD)' box)
+                display: false,
             },
-            tooltip: { // Customize tooltips
+            tooltip: {
                 enabled: true,
                 backgroundColor: 'rgba(0, 0, 0, 0.8)',
                 titleColor: '#fff',
@@ -101,28 +106,33 @@ function LineChart({ data }: LineChartProps) {
                             label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed.y);
                         }
                         return label;
-                    }
-                }
+                    },
+                },
             },
             zoom: {
                 pan: {
-                    enabled: true, // Enable panning
-                    mode: 'x' as const, // Pan only on the x-axis
+                    enabled: true,
+                    mode: 'x' as const,
                 },
                 zoom: {
                     wheel: {
-                        enabled: true, // Enable zooming with mouse wheel
+                        enabled: true,
                     },
                     pinch: {
-                        enabled: true // Enable zooming with pinch gesture (for touch devices)
+                        enabled: true,
                     },
-                    mode: 'x' as const, // Zoom only on the x-axis
-                }
-            }
-        }
+                    mode: 'x' as const,
+                },
+            },
+        },
     };
 
-    return <div style={{ width: '100%', height: '400px' }}><Line data={chartData} options={options} style={{ maxWidth: '100%', maxHeight: '100%' }} /></div>;
-}
+    return (
+        <div className="w-full max-w-4xl mx-auto">
+            <h2 className="text-2xl text-center mb-4">{title}</h2>
+            <Line data={chartData} options={options} style={{ maxWidth: '100%', maxHeight: '300px' }} />
+        </div>
+    );
+};
 
-export default LineChart;
+export default CryptoGraph;

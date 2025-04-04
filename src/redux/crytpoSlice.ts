@@ -57,14 +57,14 @@ export const fetchCryptoChartData = createAsyncThunk<CryptoChartData, { coinId: 
     'crypto/fetchCryptoChartData',
     async ({ coinId, days }) => {
         // Determine interval based on days for better granularity
-        const interval = days <= 1 ? 'hourly' : 'daily';
+        //const interval = days <= 1 ? 'hourly' : 'daily';
         const response = await axios.get<CryptoChartData>(
             `https://api.coingecko.com/api/v3/coins/${coinId}/market_chart`,
             {
                 params: {
                     vs_currency: 'usd',
                     days: days.toString(), // Use the provided days
-                    interval: interval
+                    interval: 'daily'
                 },
             }
         );

@@ -5,7 +5,7 @@ import { useParams } from 'next/navigation'; // Use useParams hook
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks'; // Corrected import path
 import { fetchCryptoChartData } from '../../../redux/crytpoSlice'; // Corrected import path
 import { RootState } from '../../../redux/store'; // Import RootState for typing
-import LineChart from '../../components/CryptoChart';
+import CryptoGraph from '../../components/CryptoChart';
 import { Poppins } from 'next/font/google';
 
 const poppins = Poppins({
@@ -62,11 +62,11 @@ export default function CryptoDetail() {
                 {chartLoading && <p className="text-center py-10">Loading chart data...</p>} {/* Added padding */}
                 {chartError && <p className="text-red-500 text-center py-10">Error loading chart: {chartError}</p>} {/* Added padding */}
                 {chartData && !chartLoading && !chartError ? (
-                    <LineChart data={chartData} />
+                    <CryptoGraph data={chartData} selectedDays={selectedDays} cryptoId={cryptoId} />
                 ) : (
                     !chartLoading && !chartError && <p className="text-center">No chart data available.</p> // Handle case where data is null but no error/loading
                 )}
             </div>
-        </div>
+        </div >
     );
 }
