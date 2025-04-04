@@ -1,16 +1,20 @@
 "use client";
-import { useEffect } from 'react'; // Keep only one import
-import Link from 'next/link'; // Import Link for navigation
+
+import { useEffect } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation'; // ✅ Import for back button
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { fetchWeather } from '../../redux/weatherSlice';
-import { fetchCrypto, CryptoCoin } from '../../redux/crytpoSlice'; // Import fetchCryptoChartData
-import { fetchNews, NewsArticle } from '../../redux/newsSlice'; // Removed toggleFavoriteNews
-import NewsCard from '../components/NewsCard'; // Importing NewsCard
-import CryptoChart from '../components/CryptoChart'; // Import CryptoChart
+import { fetchCrypto, CryptoCoin } from '../../redux/crytpoSlice';
+import { fetchNews, NewsArticle } from '../../redux/newsSlice';
+import NewsCard from '../components/NewsCard';
+import CryptoChart from '../components/CryptoChart';
 import { toggleFavoriteCrypto, toggleFavoriteCity } from '../../redux/slices/userPreferencesSlice';
 
 export default function DashboardPage() {
   const dispatch = useAppDispatch();
+  const router = useRouter(); // ✅ Initialize router for back navigation
+
   const { favoriteCities: favCities, favoriteCryptos: favCryptos } = useAppSelector((state) => state.userPreferences);
 
   const weatherData = useAppSelector((state) => state.weather.data);
@@ -39,6 +43,14 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen px-6 py-10 space-y-12 bg-gradient-to-b from-black via-[#1a0d00] to-[#0f0f0f] text-white">
+
+      {/* 🔙 Back Button */}
+      <button
+        onClick={() => router.back()}
+        className="text-sm px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-full w-fit mb-4"
+      >
+        ← Go Back
+      </button>
 
       <h1 className="text-4xl font-bold text-center"> Storm Chain</h1>
 
@@ -73,30 +85,46 @@ export default function DashboardPage() {
 
       {/* Crypto Section */}
       <section>
-        <h2 className="text-2xl font-semibold mb-4">🪙 Crypto   (Click To See The Graph) </h2>
+        <h2 className="text-2xl font-semibold mb-4">🪙 Crypto  </h2>
         {cryptoLoading && <p>Loading crypto data...</p>}
         {cryptoError && <p className="text-red-600">Error: {cryptoError}</p>}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           {cryptoData.map((coin: CryptoCoin) => (
-            <div key={coin.id} className="bg-[#1c1c1c] p-4 rounded-xl shadow text-white hover:scale-105 transition-transform duration-300 flex flex-col relative">
-              <Link href={`/crypto/${coin.id}`} className="block">
-                <span
-                  onClick={(e) => {
-                    e.preventDefault();
-                    dispatch(toggleFavoriteCrypto(coin.id));
-                  }}
-                  className={`absolute top-2 right-2 text-lg cursor-pointer ${isFavoriteCrypto(coin.id) ? 'text-yellow-500' : 'text-gray-400'}`}
-                >
-                  {isFavoriteCrypto(coin.id) ? '★' : '☆'}
-                </span>
-                <h3 className="text-xl font-semibold mb-2">
-                  {coin.name}
-                </h3>
+            <div
+              key={coin.id}
+              className="bg-[#1c1c1c] p-4 rounded-xl shadow text-white hover:scale-105 transition-transform duration-300 flex flex-col"
+            >
+              <span
+                onClick={() => router.replace(`/crypto/${coin.id}`)}
+                className="block cursor-pointer"
+              >
+                {/* Title + Favorite Icon */}
+                <div className="flex justify-between items-start mb-2">
+                  <h3 className="text-xl font-semibold">{coin.name}</h3>
+                  <span
+                    onClick={(e) => {
+                      e.preventDefault();
+                      dispatch(toggleFavoriteCrypto(coin.id));
+                    }}
+                    className={`text-lg cursor-pointer ${isFavoriteCrypto(coin.id) ? 'text-yellow-500' : 'text-gray-400'}`}
+                  >
+                    {isFavoriteCrypto(coin.id) ? '★' : '☆'}
+                  </span>
+                </div>
+
+                {/* Price Info */}
                 <p>Price: ${coin.current_price}</p>
                 <p>24h Change: {coin.price_change_percentage_24h.toFixed(2)}%</p>
-                <p>Market Cap: ${coin.market_cap.toLocaleString()}</p>
-              </Link>
+
+                {/* Market Cap + Chart Preview */}
+                <div className="flex justify-between items-center mt-1">
+                  <p>Market Cap: ${coin.market_cap.toLocaleString()}</p>
+                  <span className="text-xs text-gray-400 italic">📉 Chart Preview</span>
+                </div>
+              </span>
             </div>
+
+
           ))}
         </div>
       </section>
