@@ -1,6 +1,6 @@
 # 🌦️💰 Storm Chain 📡📰
 
-Storm Chain project is a real-time dashboard web app that brings together 🌤️ weather data, 🪙 cryptocurrency info, and 🗞️ top news headlines — all in one place! It features detailed views for each weather city and cryptocurrency, live WebSocket updates, and a beautiful dark/light toggle. Fully responsive, fast, and publicly deployed! 🚀
+Storm Chain project is a real-time dashboard web app that brings together 🌤️ weather data, 🪙 cryptocurrency info, and 🗞️ top news headlines — all in one place! It features detailed views for each weather city and cryptocurrency, live WebSocket updates. Fully responsive, fast, and publicly deployed! 🚀
 
 ---
 
@@ -65,21 +65,17 @@ Visit http://localhost:3000 to view it in action!
 
 🗞️ Real-time news headlines with source chips
 
-🌗 Dark/Light mode toggle
-
 🎯 Detail pages for both city weather and individual crypto assets
 
-⚡ Smooth fade-in image transitions and WebSocket updates
+//TODO Smooth fade-in image transitions and WebSocket updates
 
 😤 Challenges We Faced (And Crushed)
 1. 📉 WebSocket + Redux Integration
 Getting real-time updates working in sync with Redux was tricky — state conflicts and re-renders were breaking the UI. We eventually set up a clean middleware-like layer to handle socket events smoothly. 💪
 
-2. 🧩 Dark/Light Mode Persistence
-We wanted the UI mode to persist even after refresh. Local storage + Tailwind dark class was the solution — but managing hydration errors on initial load needed careful setup!
-
-3. 🔀 API Rate Limits & Data Caching
+2. 🔀 API Rate Limits & Data Caching
 We hit rate limits during development (especially NewsData.io). We introduced caching strategies and debounced calls to avoid over-fetching.
+
 
 ✍️ Author
 GitHub: @varunsiravuri
