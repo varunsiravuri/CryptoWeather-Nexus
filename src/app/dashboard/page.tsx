@@ -3,14 +3,14 @@ import { useEffect } from 'react'; // Keep only one import
 import Link from 'next/link'; // Import Link for navigation
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { fetchWeather } from '../../redux/weatherSlice';
-import { fetchCrypto, CryptoCoin } from '../../redux/crytpoSlice'; // Removed chart imports
-import { fetchNews, NewsArticle } from '../../redux/newsSlice';
+import { fetchCrypto, CryptoCoin } from '../../redux/crytpoSlice'; // Removed toggleFavoriteCrypto
+import { fetchNews, NewsArticle } from '../../redux/newsSlice'; // Removed toggleFavoriteNews
 import NewsCard from '../components/NewsCard'; // Importing NewsCard
 // Removed CryptoChart import
 
 export default function DashboardPage() {
   const dispatch = useAppDispatch();
-  const { favoriteCities: favCities, favoriteCryptos: favCryptos } = useAppSelector(state => state.favorites);
+  const { favoriteCities: favCities, favoriteCryptos: favCryptos, favoriteNews: favNews } = useAppSelector(state => state.favorites);
 
   const weatherData = useAppSelector((state) => state.weather.data);
   const weatherLoading = useAppSelector((state) => state.weather.loading);
@@ -75,6 +75,52 @@ export default function DashboardPage() {
         </div>
       </section>
 
+      {/* Favorites Section */}
+      <section>
+        <h2 className="text-2xl font-semibold mb-4">⭐ Favorites</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Favorite Cities */}
+          {favCities.length > 0 && (
+            <div className="bg-white p-4 rounded shadow text-black">
+              <h3 className="text-xl font-semibold mb-2">Favorite Cities</h3>
+              <ul>
+                {favCities.map((city) => (
+                  <li key={city}>{city}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* Favorite Cryptocurrencies */}
+          {favCryptos.length > 0 && (
+            <div className="bg-white p-4 rounded shadow text-black">
+              <h3 className="text-xl font-semibold mb-2">Favorite Cryptos</h3>
+              <ul>
+                {favCryptos.map((crypto) => (
+                  <li key={crypto}>{crypto}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* Favorite News */}
+          {favNews.length > 0 && (
+            <div className="bg-white p-4 rounded shadow text-black">
+              <h3 className="text-xl font-semibold mb-2">Favorite News</h3>
+              <ul>
+                {favNews.map((newsUrl) => (
+                  <li key={newsUrl}>
+                    <a href={newsUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
+                      {newsUrl}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      </section>
+
       {/* News Section */}
       <section>
         <h2 className="text-2xl font-semibold mb-4">📰 News</h2>
@@ -82,7 +128,13 @@ export default function DashboardPage() {
         {newsError && <p className="text-red-600">{newsError}</p>}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {news.map((article: NewsArticle, index: number) => (
-            <NewsCard key={index} article={article} />
+            <div key={index} className="bg-white p-4 rounded shadow text-black">
+              <h3 className="text-xl font-semibold mb-2">{article.title}</h3>
+              <p>Published on: {article.pubDate}</p>
+              <a href={article.link} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
+                Read more
+              </a>
+            </div>
           ))}
         </div>
       </section>
