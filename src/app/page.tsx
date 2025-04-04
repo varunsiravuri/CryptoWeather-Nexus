@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Poppins } from 'next/font/google';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { addFavoriteCity, removeFavoriteCity, addFavoriteCrypto, removeFavoriteCrypto } from '../store/favoritesSlice';
@@ -13,9 +13,12 @@ const poppins = Poppins({
 const Home = () => {
   const dispatch = useAppDispatch();
   const { favoriteCities, favoriteCryptos } = useAppSelector((state) => state.favorites);
+  // Removed theme state, useEffect, and toggleTheme function
 
   return (
+    // Removed data-theme={theme}
     <div className="flex flex-col min-h-screen bg-gradient-to-b from-black via-[#1a0d00] to-[#0f0f0f] text-white">
+      {/* Removed theme toggle button */}
 
       <main className="flex-grow">
         <h2 className={`text-4xl text-center font-bold mt-12 mb-6 ${poppins.className}`}>
