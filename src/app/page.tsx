@@ -15,7 +15,8 @@ const Home = () => {
   const { favoriteCities, favoriteCryptos } = useAppSelector((state) => state.favorites);
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#0f0f0f] text-white">
+    <div className="flex flex-col min-h-screen bg-gradient-to-b from-black via-[#1a0d00] to-[#0f0f0f] text-white">
+
       <main className="flex-grow">
         <h2 className={`text-4xl text-center font-bold mt-12 mb-6 ${poppins.className}`}>
           Storm Chain
@@ -24,7 +25,7 @@ const Home = () => {
         {/* Explore Insights Button */}
         <div className="mb-6 flex justify-center">
           <a
-            href="/insights"
+            href="/dashboard"
             className="inline-flex items-center gap-2 px-6 py-2 text-white bg-gradient-to-r from-blue-500 to-purple-600 rounded-full shadow-md hover:scale-105 hover:shadow-lg transition duration-300"
           >
             👉 <span className="text-lg">Explore Insights</span>
@@ -33,12 +34,14 @@ const Home = () => {
 
         {/* Centered Bitcoin Image with Glow */}
         <div className="flex justify-center items-center my-10">
-          <div className="relative p-2 rounded-full bg-[radial-gradient(circle,rgba(255,204,0,0.1)_0%,transparent_80%)]">
+          <div className="relative p-4 rounded-full bg-[radial-gradient(circle,rgba(255,140,0,0.2)_0%,transparent_70%)] shadow-[0_0_60px_rgba(255,140,0,0.4)]">
+
             <img
               src="/bitcoin.webp"
               alt="Glowing Bitcoin"
-              className="w-60 h-auto rounded-xl shadow-xl hover:scale-105 transition-transform duration-500"
+              className="w-60 h-auto rounded-xl shadow-2xl hover:scale-105 transition-transform duration-500"
             />
+
           </div>
         </div>
 
