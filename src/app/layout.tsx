@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Providers } from "../redux/providers";
 import React from 'react';
-// Removed ThemeHandler import
+import { ThemeHandler } from "./components/ThemeHandler"; // Import ThemeHandler
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,12 +25,12 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Removed useState and useEffect for theme handling
-
   return (
-    <html lang="en">{/* Removed data-theme={theme} */}
+    <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <Providers>{children}</Providers> {/* Removed ThemeHandler wrapper */}
+        <Providers>
+          <ThemeHandler>{children}</ThemeHandler>
+        </Providers>
       </body>
     </html>
   );
