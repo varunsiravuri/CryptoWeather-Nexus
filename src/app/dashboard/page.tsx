@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { fetchWeather, WeatherAPIResponse } from '../../redux/weatherSlice';
 import { fetchCrypto, CryptoCoin } from '../../redux/crytpoSlice';
 import { fetchNews, NewsArticle } from '../../redux/newsSlice';
-import { NewsCard } from '../components/NewsCard'; // Importing NewsCard
+import NewsCard from '../components/NewsCard'; // Importing NewsCard
 
 export default function DashboardPage() {
   const dispatch = useAppDispatch();
