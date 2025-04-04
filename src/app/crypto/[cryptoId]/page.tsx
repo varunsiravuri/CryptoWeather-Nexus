@@ -2,15 +2,12 @@
 
 import React, { useEffect, useState } from 'react'; // Import useState
 import { useParams } from 'next/navigation'; // Use useParams hook
-import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-import type { RootState, AppDispatch } from '../../../redux/store';
+// Removed local hook definitions
+import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHooks'; // Import hooks
 import { fetchCryptoChartData } from '../../../redux/crytpoSlice'; // Corrected import path
+import { toggleFavoriteCrypto } from '../../../redux/slices/userPreferencesSlice'; // Import action
 import CryptoGraph from '../../components/CryptoChart';
 import { Poppins } from 'next/font/google';
-
-// Use throughout your app instead of plain `useDispatch` and `useSelector`
-export const useAppDispatch: () => AppDispatch = useDispatch;
-export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 const poppins = Poppins({
     weight: ['400', '700'],
@@ -25,8 +22,10 @@ export default function CryptoDetail() {
     const dispatch = useAppDispatch();
     const [selectedDays, setSelectedDays] = useState(7); // State for selected time range (default 1 week)
 
-    // Select chart data from Redux store with type annotation
-    const { chartData, chartLoading, chartError } = useAppSelector((state: RootState) => state.crypto);
+    // Select chart data from Redux store
+    const { chartData, chartLoading, chartError } = useAppSelector((state) => state.crypto); // Removed RootState type, inferred by hook
+    // Select favorite cryptos
+    const { favoriteCryptos } = useAppSelector((state) => state.userPreferences);
 
     useEffect(() => {
         if (cryptoId) {
@@ -44,9 +43,21 @@ export default function CryptoDetail() {
         { label: '1M', days: 30 },
     ];
 
+    const isFavorite = cryptoId ? favoriteCryptos.includes(cryptoId) : false;
+
     return (
         <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center p-8 pt-20"> {/* Adjusted padding */}
-            <h1 className={`text-4xl font-bold mb-4 ${poppins.className}`}>{displayName} Details</h1>
+            <div className="flex items-center space-x-4 mb-4"> {/* Wrapper for title and button */}
+                <h1 className={`text-4xl font-bold ${poppins.className}`}>{displayName} Details</h1>
+                {cryptoId && ( // Only show button if cryptoId is valid
+                    <button
+                        onClick={() => dispatch(toggleFavoriteCrypto(cryptoId))}
+                        className={`px-3 py-1 text-sm rounded transition-colors ${isFavorite ? 'bg-yellow-500 hover:bg-yellow-600 text-black' : 'bg-gray-700 hover:bg-gray-600'}`}
+                    >
+                        {isFavorite ? '★ Favorited' : '☆ Favorite'}
+                    </button>
+                )}
+            </div>
 
             {/* Time Range Buttons */}
             <div className="flex space-x-2 mb-6">

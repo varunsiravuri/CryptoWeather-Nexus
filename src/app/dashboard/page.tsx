@@ -76,10 +76,10 @@ export default function DashboardPage() {
       </section>
 
       {/* Favorites Section */}
-      <section>
+      {/* <section>
         <h2 className="text-2xl font-semibold mb-4">⭐ Favorites</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Favorite Cities */}
+          
           {favCities.length > 0 && (
             <div className="bg-white p-4 rounded shadow text-black">
               <h3 className="text-xl font-semibold mb-2">Favorite Cities</h3>
@@ -89,10 +89,10 @@ export default function DashboardPage() {
                 ))}
               </ul>
             </div>
-          )}
+          )} */}
 
-          {/* Favorite Cryptocurrencies */}
-          {favCryptos.length > 0 && (
+      {/* Favorite Cryptocurrencies */}
+      {/* {favCryptos.length > 0 && (
             <div className="bg-white p-4 rounded shadow text-black">
               <h3 className="text-xl font-semibold mb-2">Favorite Cryptos</h3>
               <ul>
@@ -101,10 +101,10 @@ export default function DashboardPage() {
                 ))}
               </ul>
             </div>
-          )}
+          )} */}
 
-          {/* Favorite News */}
-          {favNews.length > 0 && (
+      {/* Favorite News */}
+      {/* {favNews.length > 0 && (
             <div className="bg-white p-4 rounded shadow text-black">
               <h3 className="text-xl font-semibold mb-2">Favorite News</h3>
               <ul>
@@ -119,7 +119,7 @@ export default function DashboardPage() {
             </div>
           )}
         </div>
-      </section>
+      </section> */}
 
       {/* News Section */}
       <section>
