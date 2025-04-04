@@ -33,9 +33,9 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center">
       {/* Project Name */}
-      <h1 className={`text-6xl font-bold mb-8 ${poppins.className} border-b border-gray-700 pb-2`}>
-        CryptoWeather-Nexus
-      </h1>
+      <h2 className={`text-5xl font-bold mb-8 ${poppins.className} pb-2`}>
+        Storm Chain
+      </h2>
 
       {/* Features */}
       <div className="mb-8">
@@ -48,7 +48,7 @@ const Home = () => {
       </div>
 
       {/* Favorite Cities */}
-      <div className="mb-4">
+      {/* <div className="mb-4">
         <h2 className="text-2xl font-bold mb-2">Favorite Cities</h2>
         <ul className="flex flex-wrap gap-2">
           {favoriteCities.map((city: string) => (
@@ -63,10 +63,10 @@ const Home = () => {
         <button onClick={() => handleAddFavoriteCity('London')} className="bg-gray-700 px-4 py-2 rounded-md mt-2">
           Add London
         </button>
-      </div>
+      </div> */}
 
       {/* Favorite Cryptos */}
-      <div className="mb-8">
+      {/* <div className="mb-8">
         <h2 className="text-2xl font-bold mb-2">Favorite Cryptos</h2>
         <ul className="flex flex-wrap gap-2">
           {favoriteCryptos.map((crypto: string, index: number) => (
@@ -81,7 +81,7 @@ const Home = () => {
         <button onClick={() => handleAddFavoriteCrypto('Bitcoin')} className="bg-gray-700 px-4 py-2 rounded-md mt-2">
           Add Bitcoin
         </button>
-      </div>
+      </div> */}
 
       {/* Highlight Features Section */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
