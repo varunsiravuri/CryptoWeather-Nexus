@@ -88,17 +88,5 @@ GitHub: @varunsiravuri
 Check out the live version 👉 https://cryptoweather-nexu.vercel.app
 
 
-yaml
-Copy
-Edit
-
----
-
-Let me know if you want this README auto-formatted and pushed to your actual GitHub repo via a PR or if you want me to include screenshots, badges, or links!
-
-
-
-
-
 
 
