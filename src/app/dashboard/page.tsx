@@ -34,7 +34,8 @@ export default function DashboardPage() {
   }, [dispatch]);
 
   return (
-    <div className="min-h-screen px-6 py-10 space-y-12">
+    <div className="min-h-screen px-6 py-10 space-y-12 bg-gradient-to-b from-black via-[#1a0d00] to-[#0f0f0f] text-white">
+
       <h1 className="text-4xl font-bold text-center">CryptoWeather Nexus</h1>
 
       {/* Weather Section */}
@@ -44,7 +45,8 @@ export default function DashboardPage() {
         {weatherError && <p className="text-red-600">Error: {weatherError}</p>}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           {Object.entries(weatherData).map(([city, data]: [string, any]) => (
-            <div key={city} className="bg-white p-4 rounded shadow text-black">
+            <div key={city} className="bg-[#1c1c1c] p-4 rounded-xl shadow text-white hover:scale-105 transition-transform duration-300">
+
               <h3 className="text-xl font-semibold mb-2">
                 {city}
               </h3>
@@ -63,7 +65,7 @@ export default function DashboardPage() {
         {cryptoError && <p className="text-red-600">Error: {cryptoError}</p>}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           {cryptoData.map((coin: CryptoCoin) => (
-            <div key={coin.id} className="bg-white p-4 rounded shadow text-black h-full">
+            <div key={coin.id} className="bg-[#1c1c1c] p-4 rounded-xl shadow text-white hover:scale-105 transition-transform duration-300">
               <h3 className="text-xl font-semibold mb-2">
                 {coin.name}
               </h3>
@@ -128,7 +130,7 @@ export default function DashboardPage() {
         {newsError && <p className="text-red-600">{newsError}</p>}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {news.map((article: NewsArticle, index: number) => (
-            <div key={index} className="bg-white p-4 rounded shadow text-black">
+            <div key={index} className="bg-[#1c1c1c] p-4 rounded-xl shadow text-white hover:scale-105 transition-transform duration-300">
               <h3 className="text-xl font-semibold mb-2">{article.title}</h3>
               <p>Published on: {article.pubDate}</p>
               <a href={article.link} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
