@@ -32,18 +32,19 @@ const Home = () => {
           </a>
         </div>
 
-        {/* Centered Bitcoin Image with Glow */}
-        <div className="flex justify-center items-center my-10">
-          <div className="relative p-4 rounded-full bg-[radial-gradient(circle,rgba(255,140,0,0.2)_0%,transparent_70%)] shadow-[0_0_60px_rgba(255,140,0,0.4)]">
+        {/* Centered Bitcoin Image */}
 
+        <div className="flex justify-center items-center my-10">
+          <div className="relative before:absolute before:inset-0 before:rounded-full before:bg-[radial-gradient(ellipse_at_center,_rgba(255,150,0,0.35)_0%,_transparent_70%)] before:blur-2xl before:z-0">
             <img
               src="/bitcoin.webp"
               alt="Glowing Bitcoin"
-              className="w-60 h-auto rounded-xl shadow-2xl hover:scale-105 transition-transform duration-500"
+              className="relative z-10 w-64 h-auto rounded-xl shadow-[0_0_60px_rgba(255,150,0,0.3)] hover:scale-105 transition-transform duration-500"
             />
-
           </div>
         </div>
+
+
 
         {/* Highlight Features Section */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16 px-6">
