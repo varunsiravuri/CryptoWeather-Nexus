@@ -100,7 +100,7 @@ Walkthrough :
 
 | Feature              | Implementation                                                                 |
 |---------------------|---------------------------------------------------------------------------------|
-| Weather Dashboard   | Shows weather info for 3 cities - New York, London, Tokyo using OpenWeatherMap API. |
+| Weather Dashboard   | Shows weather info of  3 cities - New York, London, Tokyo using OpenWeatherMap API. |
 | Crypto Dashboard    | Displays top 3 coins (Bitcoin, Ethereum, and Dogecoin) with real-time price.    |
 | News Section        | Shows latest headlines with source chip badges and fade-in image effect.        |
 | Detail Pages        | Weather and Crypto detail pages on clicking each card.                          |
