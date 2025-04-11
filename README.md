@@ -69,7 +69,45 @@ Visit http://localhost:3000 to view it in action!
 
 🎯 Detail pages for both city weather and individual crypto assets
 
-//TODO Smooth fade-in image transitions and WebSocket updates
+Approach:
+Broke down the assignment into 3 main modules:
+
+  *Weather Data
+  *Cryptocurrency Data
+  *News Data
+
+Used Next.js (App Router) for the frontend for server-side rendering & routing.
+
+Used Tailwind CSS for clean responsive UI.
+
+State Management via Redux Toolkit for handling data across components.
+
+Integrated 3rd Party APIs:
+
+OpenWeatherMap (Weather)
+
+CoinGecko (Crypto)
+
+NewsData.io (News)
+
+Real-Time WebSocket Implementation for notification updates.
+
+Mobile Responsive with Light/Dark Mode Toggle.
+
+Clean reusable components and utility functions.
+
+Walkthrough :
+
+| Feature              | Implementation                                                                 |
+|---------------------|---------------------------------------------------------------------------------|
+| Weather Dashboard   | Shows weather info for 3 cities - New York, London, Tokyo using OpenWeatherMap API. |
+| Crypto Dashboard    | Displays top 3 coins (Bitcoin, Ethereum, and Dogecoin) with real-time price.    |
+| News Section        | Shows latest headlines with source chip badges and fade-in image effect.        |
+| Detail Pages        | Weather and Crypto detail pages on clicking each card.                          |
+| WebSocket Notification | Sample socket notification setup for demo purpose.                          |
+| Responsive UI       | Fully responsive layout with Tailwind and Next.js image optimization.           |
+| Dark/Light Mode     | Toggle button available globally to switch themes.                              |
+
 
 😤 Challenges We Faced (And Crushed)
 1. 📉 WebSocket + Redux Integration
