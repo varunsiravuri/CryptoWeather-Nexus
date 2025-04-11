@@ -109,6 +109,18 @@ Walkthrough :
 | Dark/Light Mode     | Toggle button available globally to switch themes.                              |
 
 
+Project Structure :
+
+src/
+├── app/                --> Next.js App Router Pages
+├── components/         --> Reusable UI Components
+├── features/           --> Redux Slices for Weather, Crypto, News
+├── services/           --> API Call Logic
+├── store/              --> Redux Store Configuration
+├── utils/              --> Utility Functions
+├── styles/             --> Global Tailwind Styles
+
+
 😤 Challenges We Faced (And Crushed)
 1. 📉 WebSocket + Redux Integration
 Getting real-time updates working in sync with Redux was tricky — state conflicts and re-renders were breaking the UI. We eventually set up a clean middleware-like layer to handle socket events smoothly. 💪
