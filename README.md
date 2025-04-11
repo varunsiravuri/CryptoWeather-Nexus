@@ -22,7 +22,7 @@ Check out the live version 👉  https://crypto-weather-nexus-weld.vercel.app
 
 ---
 
-## 🧪 What We Installed
+## 🧪Everything You Need To Know About Storm Chain
 
 ```bash
 npm install @reduxjs/toolkit react-redux
@@ -121,6 +121,15 @@ src/
 ├── styles/             --> Global Tailwind Styles
 
 
+ Next Improvements :
+
+  *Add proper loading skeletons and user-friendly error handling for API calls.
+
+  *Optimize API calls with caching (using SWR or React Query) to avoid unnecessary network requests.
+
+  *Detail Pages	Weather and Crypto detail pages on clicking each card.
+
+
 😤 Challenges We Faced (And Crushed)
 1. 📉 WebSocket + Redux Integration
 Getting real-time updates working in sync with Redux was tricky — state conflicts and re-renders were breaking the UI. We eventually set up a clean middleware-like layer to handle socket events smoothly. 💪
@@ -133,10 +142,7 @@ This was a beast! We needed to fetch and display historical price data dynamical
 
 ✍️ Author
 GitHub: @varunsiravuri
-
-🌐 Live Demo
-Check out the live version 👉 https://crypto-weather-nexus-weld.vercel.app
-
+Raghu Varma Siravuri
 
 
 
